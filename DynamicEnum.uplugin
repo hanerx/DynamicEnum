@@ -1,29 +1,29 @@
 {
-  "FileVersion": 3,
-  "Version": 1,
-  "VersionName": "1.0",
-  "FriendlyName": "DynamicEnum",
-  "Description": "DynamicEnum",
-  "Category": "Other",
-  "CreatedBy": "",
-  "CreatedByURL": "",
-  "DocsURL": "",
-  "MarketplaceURL": "",
-  "SupportURL": "",
-  "CanContainContent": true,
-  "IsBetaVersion": false,
-  "IsExperimentalVersion": false,
-  "Installed": false,
-  "Modules": [
-    {
-      "Name": "DynamicEnum",
-      "Type": "Runtime",
-      "LoadingPhase": "Default"
-    },
-    {
-      "Name": "DynamicEnumEditor",
-      "Type": "Editor",
-      "LoadingPhase": "PreDefault"
-    }
-  ]
+	"FileVersion": 3,
+	"Version": 1,
+	"VersionName": "1.0",
+	"FriendlyName": "DynamicEnum",
+	"Description": "A Plugin support dynamic enum type.",
+	"Category": "Utilty",
+	"CreatedBy": "hanerx",
+	"CreatedByURL": "http://github.com/hanerx",
+	"DocsURL": "https://github.com/hanerx/DynamicEnum/blob/main/README.md",
+	"MarketplaceURL": "",
+	"SupportURL": "",
+	"CanContainContent": true,
+	"IsBetaVersion": false,
+	"IsExperimentalVersion": false,
+	"Installed": false,
+	"Modules": [
+		{
+			"Name": "DynamicEnum",
+			"Type": "Runtime",
+			"LoadingPhase": "Default"
+		},
+		{
+			"Name": "DynamicEnumEditor",
+			"Type": "Editor",
+			"LoadingPhase": "PreDefault"
+		}
+	]
 }
