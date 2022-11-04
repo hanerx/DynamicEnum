@@ -10,7 +10,13 @@ void FDynamicEnumPropertyTypeCustomization::CustomizeChildren(TSharedRef<IProper
                                                               IDetailChildrenBuilder& ChildBuilder,
                                                               IPropertyTypeCustomizationUtils& CustomizationUtils)
 {
-	CustomizeEnumType(PropertyHandle, ChildBuilder, CustomizationUtils);
+	if(IsTypeEditable(PropertyHandle))
+	{
+		CustomizeEnumType(PropertyHandle, ChildBuilder, CustomizationUtils);
+	}else
+	{
+		SetEnumType(PropertyHandle);
+	}
 	CustomizeValue(PropertyHandle, ChildBuilder, CustomizationUtils);
 }
 
@@ -111,6 +117,7 @@ void FDynamicEnumPropertyTypeCustomization::CustomizeValue(TSharedRef<IPropertyH
 			.OptionsSource(&ComboOptions)
 			.OnGenerateWidget(this,&FDynamicEnumPropertyTypeCustomization::OnGenerateWidget)
 			.OnSelectionChanged(this,&FDynamicEnumPropertyTypeCustomization::OnSelectionChanged,PropertyHandle)
+			.IsEnabled(this,&FDynamicEnumPropertyTypeCustomization::IsValueEditable,PropertyHandle)
 		];
 }
 
@@ -124,6 +131,18 @@ bool FDynamicEnumPropertyTypeCustomization::IsValueEditable(TSharedRef<IProperty
 		return true;
 	}
 	return false;
+}
+
+bool FDynamicEnumPropertyTypeCustomization::IsTypeEditable(TSharedRef<IPropertyHandle> PropertyHandle) const
+{
+	if(PropertyHandle->HasMetaData(TEXT("Enum")))
+	{
+		if(FindObject<UEnum>(ANY_PACKAGE,*PropertyHandle->GetMetaData(TEXT("Enum"))))
+		{
+			return false;
+		}
+	}
+	return true;
 }
 
 void FDynamicEnumPropertyTypeCustomization::GenerateComboOptions(TSharedRef<IPropertyHandle> PropertyHandle,
@@ -155,6 +174,21 @@ void FDynamicEnumPropertyTypeCustomization::ResetEnumValue(TSharedRef<IPropertyH
 		GET_MEMBER_NAME_CHECKED(FDynamicEnum, Value));
 	EnumValueHandle->SetValue(0);
 	ComboOptions.Empty();
+}
+
+void FDynamicEnumPropertyTypeCustomization::SetEnumType(TSharedRef<IPropertyHandle> PropertyHandle) const
+{
+	const TSharedPtr<IPropertyHandle> EnumTypeHandle = PropertyHandle->GetChildHandle(
+		GET_MEMBER_NAME_CHECKED(FDynamicEnum, EnumType));
+	if(PropertyHandle->HasMetaData(TEXT("Enum")))
+	{
+		if(UEnum* Enum=FindObject<UEnum>(ANY_PACKAGE,*PropertyHandle->GetMetaData(TEXT("Enum"))))
+		{
+			PropertyHandle->NotifyPreChange();
+			EnumTypeHandle->SetValue(Enum);
+			PropertyHandle->NotifyPostChange(EPropertyChangeType::ValueSet);
+		}
+	}
 }
 
 #undef LOCTEXT_NAMESPACE

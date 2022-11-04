@@ -28,10 +28,13 @@ private:
 	void CustomizeValue(TSharedRef<IPropertyHandle> PropertyHandle, IDetailChildrenBuilder& ChildBuilder, IPropertyTypeCustomizationUtils& CustomizationUtils);
 
 	bool IsValueEditable(TSharedRef<IPropertyHandle> PropertyHandle) const;
+	bool IsTypeEditable(TSharedRef<IPropertyHandle> PropertyHandle) const;
 
 	void GenerateComboOptions(TSharedRef<IPropertyHandle> PropertyHandle, TArray<TSharedPtr<FString>>& OutOptions) const;
 
 	void ResetEnumValue(TSharedRef<IPropertyHandle> PropertyHandle);
+
+	void SetEnumType(TSharedRef<IPropertyHandle> PropertyHandle) const;
 
 private:
 	TArray<TSharedPtr<FString>> ComboOptions;
