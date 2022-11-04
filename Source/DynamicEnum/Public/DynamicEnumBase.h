@@ -36,7 +36,7 @@ class DYNAMICENUM_API UDynamicEnumLibrary_K2 final : public UBlueprintFunctionLi
 {
 	GENERATED_BODY()
 public:
-	UFUNCTION(BlueprintPure, meta=(DisplayName="Is Valid (DynamicEnum)",ScriptMethod="IsValid", CompactNodeTitle="isValid?", BlueprintThreadSafe))
+	UFUNCTION(BlueprintPure, Category="DynamicEnum", meta=(DisplayName="Is Valid (DynamicEnum)",ScriptMethod="IsValid", CompactNodeTitle="isValid?", BlueprintThreadSafe))
 	static bool K2_IsValid(const FDynamicEnum& DynamicEnum) { return DynamicEnum.IsValid(); }
 
 	UFUNCTION(BlueprintPure, Category="DynamicEnum", meta=(DisplayName="To String (DynamicEnum)", CompactNodeTitle="->", ScriptMethod="ToString", BlueprintThreadSafe))
