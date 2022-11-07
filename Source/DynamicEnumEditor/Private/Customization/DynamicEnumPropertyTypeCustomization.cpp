@@ -3,6 +3,7 @@
 #include "DetailWidgetRow.h"
 #include "DynamicEnumBase.h"
 #include "IDetailChildrenBuilder.h"
+#include "IDetailGroup.h"
 #include "SSearchableComboBox.h"
 #define LOCTEXT_NAMESPACE "DynamicEnum"
 
@@ -87,7 +88,9 @@ void FDynamicEnumPropertyTypeCustomization::OnSelectionChanged(TSharedPtr<FStrin
 		GET_MEMBER_NAME_CHECKED(FDynamicEnum, Value));
 	if(ComboOptions.Contains(String))
 	{
+		PropertyHandle->NotifyPreChange();
 		EnumValueHandle->SetValue(ComboOptions.Find(String));
+		PropertyHandle->NotifyPostChange(EPropertyChangeType::ValueSet);
 	}
 }
 

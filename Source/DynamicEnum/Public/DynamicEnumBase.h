@@ -24,6 +24,10 @@ public:
 
 	FName ToName() const { return IsValid() ? EnumType->GetNameByIndex(Value) : TEXT("Invalid"); }
 
+	FText GetDisplayName() const { return IsValid() ? EnumType->GetDisplayNameTextByIndex(Value) : FText::FromString(TEXT("Invalid")); }
+
+	FString GetDisplayNameString() const { return IsValid() ? FString::Printf(TEXT("%s::%s"),*EnumType->GetName(),*EnumType->GetDisplayNameTextByIndex(Value).ToString()) : TEXT("Invalid"); }
+
 	bool operator == (const FDynamicEnum& Other) const { return EnumType == Other.EnumType && Value == Other.Value; }
 
 	bool operator != (const FDynamicEnum& Other) const { return !(*this == Other); }
@@ -44,6 +48,9 @@ public:
 
 	UFUNCTION(BlueprintPure,Category="DynamicEnum",meta=(DisplayName="To Name (DynamicEnum)", CompactNodeTitle="->", ScriptMethod="ToName", BlueprintThreadSafe))
 	static FName K2_ToName(const FDynamicEnum& DynamicEnum) { return DynamicEnum.ToName(); }
+
+	UFUNCTION(BlueprintPure,Category="DynamicEnum",meta=(DisplayName="Get Display Name (DynamicEnum)", CompactNodeTitle="->", ScriptMethod="GetDisplayName", BlueprintThreadSafe))
+	static FText K2_GetDisplayName(const FDynamicEnum& DynamicEnum) { return DynamicEnum.GetDisplayName(); }
 
 	UFUNCTION(BlueprintPure,Category="DynamicEnum",meta=(DisplayName="Equal (DynamicEnum)", CompactNodeTitle="==", BlueprintThreadSafe))
 	static bool K2_Equal(const FDynamicEnum& A, const FDynamicEnum& B) { return A == B; }

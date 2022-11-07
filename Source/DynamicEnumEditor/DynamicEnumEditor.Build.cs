@@ -9,7 +9,7 @@ public class DynamicEnumEditor : ModuleRules
         PublicDependencyModuleNames.AddRange(
             new string[]
             {
-                "Core", "ToolWidgets",
+                "Core", "ToolWidgets", "BlueprintGraph", "DynamicEnum",
             }
         );
 
